@@ -7,6 +7,8 @@ import re
 import importlib
 
 sys.path.insert(1, os.path.abspath(os.path.pardir+'/src'))
+isfunction = i.isfunction
+isclass = i.isclass
 
 def main(file):
     module = i.getmodulename(file)
@@ -14,6 +16,7 @@ def main(file):
     mod = re.sub(r"\/",'.',file)
     mod = re.sub(r'.py','',mod)
     test = importlib.import_module(mod)
+    print test
     dict1 = i.getmembers(test)
     print "Module function names:"
     for name in dict1:
@@ -21,6 +24,8 @@ def main(file):
 	# print key
 	if 'test_' in key:
 	    print "\t", key
+	    function = getattr(__import__(mod, fromlist=[key]), key)
+	    print isfunction(function)
     moddoc = i.getdoc(test)
     print ""
     print "Module Document String:\n", moddoc

@@ -10,22 +10,21 @@ sys.path.insert(1, os.path.abspath(os.path.pardir+'/src'))
 
 def main(file):
     module = i.getmodulename(file)
-    print module
+    print module, "\n"
     mod = re.sub(r"\/",'.',file)
     mod = re.sub(r'.py','',mod)
     test = importlib.import_module(mod)
     dict1 = i.getmembers(test)
-    # print dict1
+    print "Module function names:"
     for name in dict1:
 	key, val = list(name)
 	# print key
 	if 'test_' in key:
-	    print key
+	    print "\t", key
     moddoc = i.getdoc(test)
+    print ""
     print "Module Document String:\n", moddoc
 
-    #print dict1.pytestmark
-    
 
 if __name__ == '__main__':
     PARSER = argparse.ArgumentParser(description="Playground Python Module")
